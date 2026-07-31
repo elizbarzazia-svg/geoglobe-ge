@@ -1,0 +1,88 @@
+<!doctype html><html lang="ka"><head>
+<!-- skill:chrome -->
+<style>
+/* Credit line — bottom-right */
+.design-ui-credit {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  font: 11px/1 system-ui, sans-serif;
+  color: rgba(128,128,128,0.5);
+  pointer-events: none;
+  z-index: 2147483647;
+  transition: opacity 0.4s ease;
+  user-select: none;
+  letter-spacing: 0.02em;
+}
+
+/* Hide chrome on touch devices */
+@media (hover: none) {
+  .design-ui-credit { display: none; }
+}
+
+/* Print fixes */
+@media print {
+  * {
+    transition: none !important;
+    animation: none !important;
+    box-shadow: none !important;
+  }
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .design-ui-credit { display: none !important; }
+}
+
+</style>
+<script>
+(function () {
+    // Design-ui pages are single compositions, so the whole body is editable.
+    function markEditable() {
+        document.body.classList.add('artifact-editable');
+    }
+
+    // Credit badge with idle-fade. Hover devices only.
+    function initChromeUI() {
+        if (!matchMedia('(hover: hover)').matches) return;
+
+        var credit = document.createElement('div');
+        credit.className = 'design-ui-credit';
+        credit.setAttribute('aria-hidden', 'true');
+        credit.innerHTML = '\u{1F49C} by ClickUp Brain';
+        document.body.appendChild(credit);
+
+        var timer = null;
+        var fade = function (out) { credit.style.opacity = out ? '0' : ''; };
+        fade(true);
+        var show = function () {
+            fade(false);
+            clearTimeout(timer);
+            timer = setTimeout(function () { fade(true); }, 3000);
+        };
+        document.addEventListener('mousemove', show);
+        show();
+    }
+
+    function init() {
+        markEditable();
+        initChromeUI();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+
+</script>
+<!-- /skill:chrome -->
+<!-- skill:libraries -->
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<!-- /skill:libraries --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GeoGlobe.ge</title><style>
+:root{--bg:#06101d;--panel:#101e32;--line:#29415f;--text:#edf3fb;--muted:#91a8c5;--gold:#e6b84d;--red:#c52d49;--green:#58c17e;--war:#2a1f10}*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:"Noto Sans Georgian","Segoe UI",system-ui,sans-serif}button{font:inherit;cursor:pointer}#app{position:relative;height:100vh}#globe{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab}#globe:active{cursor:grabbing}.top{position:absolute;z-index:10;inset:0 0 auto;display:flex;justify-content:space-between;padding:18px 22px 44px;pointer-events:none;background:linear-gradient(#06101df5,transparent)}.brand,.stats{pointer-events:auto}.brand{display:flex;gap:10px;font-weight:850;font-size:20px}.brand:before{content:"";width:13px;height:13px;margin-top:4px;border-radius:4px;background:#d41c3c}.brand small{display:block;color:var(--muted);font-size:10px;font-weight:500}.stats{display:flex;gap:8px}.stat{min-width:90px;padding:9px 12px;border:1px solid var(--line);border-radius:11px;background:#101e32ed}.stat span{display:block;color:var(--muted);font-size:10px}.stat b{color:var(--gold);font-size:17px}.shop{position:absolute;z-index:30;right:22px;top:108px;padding:10px 16px;border:1px solid #8b6c31;border-radius:7px;background:var(--war);color:#f0dfb4;font-weight:800}.hint{position:absolute;z-index:8;top:78px;left:22px;padding:8px 11px;border:1px solid #496f97;border-radius:9px;background:#0a182ac0;color:var(--muted);font-size:11px}.dock{position:absolute;z-index:8;left:22px;bottom:43px;width:244px;border:1px solid #5c4a28;border-radius:7px;overflow:hidden;background:#09121fee}.dock h3{margin:0;padding:12px 16px;background:var(--war);border-bottom:2px solid #5c4a28;color:#e8d8b0;font-size:11px}.dock div{display:flex;justify-content:space-between;padding:9px 14px;color:#b8a882;font-size:11px;border-bottom:1px solid #5c4a284d}.dock b{color:#e8d8b0;font-size:15px}.panel{position:absolute;z-index:12;right:22px;bottom:43px;width:min(430px,calc(100vw - 44px));padding:18px;border:1px solid #3c5a78;border-radius:16px;background:#13243af2;box-shadow:0 20px 50px #0009;transform:translateY(140%);transition:transform .35s}.panel.open{transform:none}.close{position:absolute;right:12px;top:12px;width:32px;height:32px;border:1px solid #36516d;border-radius:8px;background:#0b1727;color:var(--muted)}.panel h2{margin:8px 38px 4px;font-size:25px}.kicker{color:#6cb8d8;font-size:10px;font-weight:800}.target{display:flex;align-items:center;gap:12px;margin:16px -18px 0;padding:14px 18px;background:#0c192a;border-block:1px solid var(--line)}.target img{width:50px;height:34px;object-fit:cover;border:1px solid #71859b;border-radius:5px;background:#ded7c6}.target strong{font-size:15px}.target small,.leader small{display:block;color:var(--muted);font-size:10px}.leader{display:flex;align-items:center;gap:11px;margin:0 -18px;padding:13px 18px;background:#102139;border-bottom:1px solid var(--line)}.leader img{width:56px;height:56px;object-fit:cover;border-radius:50%;border:2px solid var(--gold)}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}.metric{padding:11px;border:1px solid #2d4864;border-radius:9px;background:#0c1929}.metric span{color:var(--muted);font-size:10px}.metric b{display:block;margin-top:4px;color:var(--gold);font-size:21px}.label{display:flex;justify-content:space-between;margin-top:13px;color:var(--muted);font-size:10px}.bar{height:7px;margin-top:5px;border-radius:99px;background:#223852;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#b52c45,#ed6070)}.bar.green i{background:linear-gradient(90deg,#318c62,#6ed493)}.actions{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:7px;margin-top:17px}.action{min-height:44px;border:0;border-radius:9px;color:var(--text);font-size:11px;font-weight:800}.prepare{background:#2e6188}.attack{background:#b72d49}.negotiate{background:#206b54}.note{margin-top:13px;padding:10px;border:1px solid #304c67;border-radius:8px;color:#a9bfd3;font-size:10px}.toast{position:fixed;z-index:80;left:50%;bottom:28px;transform:translateX(-50%);padding:11px 16px;border:1px solid #536b83;border-radius:8px;background:#10243a;color:var(--text);opacity:0;pointer-events:none;transition:opacity .2s}.toast.show{opacity:1}@media(max-width:760px){.stats{gap:3px}.stat{min-width:60px;padding:7px}.stat span{display:none}.shop{top:84px;right:15px;font-size:10px}.dock{left:12px;bottom:12px;width:calc(50% - 18px)}.panel{right:12px;bottom:12px;width:calc(50% - 18px)}.actions{grid-template-columns:1fr}.action{width:100%}}
+</style></head><body><div id="app"><canvas id="globe"></canvas><div id="loading">GeoGlobe.ge იტვირთება…</div><header class="top"><div class="brand">საქართველოს დაპყრობა<small>GeoGlobe.ge · სტრატეგიული რუკა</small></div><div class="stats"><div class="stat"><span>ქოინი</span><b id="coins">500</b></div><div class="stat"><span>ძალა</span><b id="power">360</b></div><div class="stat"><span>ტერიტორია</span><b id="territory">0/0</b></div><div class="stat"><span>ომი</span><b id="wars">0</b></div></div></header><button class="shop" id="shopBtn">⚔ შეიარაღება</button><div class="hint">● გადაათრიე, სქროლი ან დააჭირე ქვეყანას</div><section class="dock"><h3>◈ საომარი მარაგი</h3><div>♙ ჯარისკაცები <b id="soldiers">555</b></div><div>◉ ბომბები <b id="bombs">65</b></div><div>₾ ფული <b id="money">785</b></div><div>⚡ ძალა <b id="strength">865</b></div></section><aside class="panel" id="panel"><button class="close" id="close">✕</button><div class="kicker">◉ სამიზნის დაზვერვა</div><h2 id="country">ქვეყანა</h2><div style="color:var(--muted);font-size:11px">იცოდე, ვის უტევ</div><div class="target"><img id="targetFlag" alt="დროშა"><div><strong id="targetName">სამიზნე</strong><small>ქვეყნის დროშა · მტრის კონტროლი</small></div></div><div class="leader"><img id="leaderPhoto" alt="ლიდერი"><div><b id="leaderName">ლიდერი</b><small id="leaderRole">სახელმწიფოს მეთაური</small></div></div><div class="metrics"><div class="metric"><span>🛡 თავდაცვა</span><b id="defence">0</b></div><div class="metric"><span>◉ მორალი</span><b id="morale">0%</b></div></div><div class="label"><span>მტრის გამაგრება</span><b id="fortText">0%</b></div><div class="bar"><i id="fortBar"></i></div><div class="label"><span>შენი მზადყოფნა</span><b id="readyText">0%</b></div><div class="bar green"><i id="readyBar"></i></div><div class="actions" id="actions"></div><div class="note" id="note">აირჩიე მოქმედება.</div></aside><div class="toast" id="toast"></div><script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script><script>
+(async()=>{const $=id=>document.getElementById(id),DATA='https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson';const names={GEO:'საქართველო',RUS:'რუსეთი',TUR:'თურქეთი',ARM:'სომხეთი',AZE:'აზერბაიჯანი',USA:'აშშ',GBR:'დიდი ბრიტანეთი',DEU:'გერმანია',FRA:'საფრანგეთი',CHN:'ჩინეთი',IND:'ინდოეთი',JPN:'იაპონია',BRA:'ბრაზილია',IRN:'ირანი'};const leaders={RUS:['ვლადიმერ პუტინი','პრეზიდენტი','Vladimir Putin'],USA:['დონალდ ტრამპი','პრეზიდენტი','Donald Trump'],GEO:['მიხეილ ყაველაშვილი','სახელმწიფოს მეთაური','Mikheil Kavelashvili'],TUR:['რეჯეფ თაიფ ერდოღანი','პრეზიდენტი','Recep Tayyip Erdogan'],ARM:['ვაჰაგნ ხაჩატურიანი','პრეზიდენტი','Vahagn Khachaturyan'],AZE:['ილჰამ ალიევი','პრეზიდენტი','Ilham Aliyev']};const prop=(p,k)=>{for(const x of k)if(p[x])return p[x];return''};const iso=f=>prop(f.properties||{},['ISO3166-1-Alpha-3','iso_a3','ISO_A3','ADM0_A3']);const iso2=f=>prop(f.properties||{},['ISO3166-1-Alpha-2','iso_a2','ISO_A2']).toLowerCase();const en=f=>prop(f.properties||{},['name','NAME','ADMIN','admin'])||'უცნობი';const hash=s=>{let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))|0;return Math.abs(h)};const S={countries:[],coins:500,power:360,soldiers:555,bombs:65,money:785,strength:865,conquered:0,total:0,wars:0,prepared:null,pausedUntil:0};function ui(){$('coins').textContent=S.coins;$('power').textContent=S.power;$('soldiers').textContent=S.soldiers;$('bombs').textContent=S.bombs;$('money').textContent=S.money;$('strength').textContent=S.strength;$('territory').textContent=S.conquered+'/'+S.total;$('wars').textContent=S.wars}function toast(t){const x=$('toast');x.textContent=t;x.classList.add('show');clearTimeout(x.timer);x.timer=setTimeout(()=>x.classList.remove('show'),1800)}function leader(c){return leaders[c.id]||[c.nameEn+'-ის სახელმწიფო მეთაური','სახელმწიფოს მეთაური','Head of state '+c.nameEn]}function select(c){S.pausedUntil=performance.now()+5000;$('panel').classList.add('open');const n=names[c.id]||c.nameEn,l=leader(c);$('country').textContent=n;$('targetName').textContent=n;$('targetFlag').src='https://flagcdn.com/w80/'+(c.iso2||'xx')+'.png';$('leaderName').textContent=l[0];$('leaderRole').textContent=l[1];$('leaderPhoto').src='https://unavatar.io/wikipedia/'+encodeURIComponent(l[2]);$('leaderPhoto').onerror=()=>{$('leaderPhoto').src='https://ui-avatars.com/api/?name='+encodeURIComponent(l[0])+'&background=27394c&color=e6b84d&size=128'};$('defence').textContent=c.defence;$('morale').textContent=c.morale+'%';$('fortText').textContent=c.fort+'%';$('fortBar').style.width=c.fort+'%';const r=Math.min(100,Math.round(S.soldiers/8+S.bombs/2+S.strength/12));$('readyText').textContent=r+'%';$('readyBar').style.width=r+'%';$('actions').innerHTML='';const p=document.createElement('button');p.className='action prepare';p.textContent='⚑ მომზადება';p.onclick=()=>{S.prepared=c;p.textContent='✓ მზადაა';toast('ჯარი მზად არის')};const a=document.createElement('button');a.className='action attack';a.textContent='⚔ შეტევა';a.onclick=()=>{attack(c)};const n2=document.createElement('button');n2.className='action negotiate';n2.textContent='✦ მოლაპარაკება';n2.onclick=()=>{$('note').textContent='მოლაპარაკება მოითხოვს ფულს.'};$('actions').append(p,a,n2)}function attack(c){$('panel').classList.remove('open');const win=(S.soldiers*1.2+S.bombs*8+S.strength*.5)*(S.prepared===c?1.5:1)>c.defence*5+c.fort*2;if(win){c.owner='player';S.conquered++;S.wars++;S.coins+=30+Math.floor(c.defence*1.5);S.soldiers=Math.max(30,S.soldiers-Math.floor(c.defence*.8));redraw();tex.needsUpdate=true;ui();toast('დაპყრობილია: '+(names[c.id]||c.nameEn))}else{S.soldiers=Math.max(30,S.soldiers-Math.floor(c.defence*.5));S.bombs=Math.max(0,S.bombs-2);ui();toast('შეტევა ჩავარდა')}S.prepared=null}
+const MW=2048,MH=1024,map=document.createElement('canvas');map.width=MW;map.height=MH;const ctx=map.getContext('2d'),proj=d3.geoEquirectangular().scale(MW/(2*Math.PI)).translate([MW/2,MH/2]),path=d3.geoPath(proj,ctx),bnd=d3.geoPath(proj);const flagCache=new Map();function loadFlag(c){if(c.id==='GEO'||!c.iso2||flagCache.has(c.iso2))return;if(!flagCache.has(c.iso2)){const im=new Image();im.crossOrigin='anonymous';im.src='https://flagcdn.com/w320/'+c.iso2+'.png';flagCache.set(c.iso2,im);im.onload=()=>{redraw();tex.needsUpdate=true}}}function drawGeorgia(f){const[[x0,y0],[x1,y1]]=bnd.bounds(f),w=x1-x0,h=y1-y0;ctx.save();ctx.beginPath();path(f);ctx.clip();ctx.fillStyle='#f4eee5';ctx.fillRect(x0,y0,w,h);ctx.fillStyle='#c8102e';ctx.fillRect(x0+w*.43,y0,w*.14,h);ctx.fillRect(x0,y0+h*.43,w,h*.14);const s=Math.max(3,Math.min(w,h)*.16);for(const[a,b]of[[.22,.22],[.78,.22],[.22,.78],[.78,.78]]){const X=x0+w*a,Y=y0+h*b;ctx.fillRect(X-s/2,Y-s*.13,s,s*.26);ctx.fillRect(X-s*.13,Y-s/2,s*.26,s)}ctx.restore()}function drawCountryFlag(c){const im=flagCache.get(c.iso2);if(!im||!im.complete||!im.naturalWidth)return;const[[x0,y0],[x1,y1]]=bnd.bounds(c.feature),w=x1-x0,h=y1-y0;ctx.save();ctx.beginPath();path(c.feature);ctx.clip();const ratio=im.naturalWidth/im.naturalHeight;let dw=w,dh=w/ratio;if(dh<h){dh=h;dw=h*ratio}ctx.drawImage(im,x0+(w-dw)/2,y0+(h-dh)/2,dw,dh);ctx.restore()}function paint(c,i){ctx.beginPath();path(c.feature);ctx.fillStyle=c.id==='GEO'?'#ded7c6':c.owner==='player'?'#b9aa85':['#d7c9a0','#c9bd8e','#b7a888','#cdb98e','#a7b58a','#8fa587'][i%6];ctx.fill('evenodd');if(c.id==='GEO')drawGeorgia(c.feature);else if(c.owner==='player'){loadFlag(c);drawCountryFlag(c)}ctx.beginPath();path(c.feature);ctx.strokeStyle=c.id==='GEO'?'#c8102e':'rgba(7,16,29,.72)';ctx.stroke()}function redraw(){ctx.fillStyle='#091a31';ctx.fillRect(0,0,MW,MH);S.countries.forEach(paint)}let scene,camera,renderer,sphere,tex,rotX=.4,rotY=0,drag=false,lx=0,ly=0;function init(){scene=new THREE.Scene();camera=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,.1,1000);camera.position.z=2.6;renderer=new THREE.WebGLRenderer({canvas:$('globe'),antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);tex=new THREE.CanvasTexture(map);sphere=new THREE.Mesh(new THREE.SphereGeometry(1,64,64),new THREE.MeshBasicMaterial({map:tex}));scene.add(sphere);$('globe').onpointerdown=e=>{drag=true;lx=e.clientX;ly=e.clientY};onpointerup=()=>drag=false;onpointermove=e=>{if(drag){rotY+=(e.clientX-lx)*.005;rotX+=(e.clientY-ly)*.005;lx=e.clientX;ly=e.clientY}};$('globe').onwheel=e=>{e.preventDefault();camera.position.z=Math.max(1.5,Math.min(5,camera.position.z+e.deltaY*.002))};$('globe').onclick=e=>{if(drag)return;const r=$('globe').getBoundingClientRect(),m=new THREE.Vector2(e.clientX/r.width*2-1,-e.clientY/r.height*2+1),ray=new THREE.Raycaster();ray.setFromCamera(m,camera);const hit=ray.intersectObject(sphere)[0];if(hit){const uv=hit.uv,co=proj.invert([uv.x*MW,(1-uv.y)*MH]),c=S.countries.find(x=>d3.geoContains(x.feature,co));if(c&&c.id!=='GEO')select(c)}};function loop(t){requestAnimationFrame(loop);if(!drag&&t>S.pausedUntil)rotY+=.001;sphere.rotation.set(rotX,rotY,0);renderer.render(scene,camera)}loop(0)}const geo=await(await fetch(DATA)).json();geo.features.forEach(f=>{const id=iso(f);if(id&&id!=='-99')S.countries.push({id,iso2:iso2(f),nameEn:en(f),feature:f,owner:id==='GEO'?'player':'enemy',defence:20+hash(id)%60,morale:30+hash(id+'m')%60,fort:10+hash(id+'f')%70})});S.total=S.countries.filter(x=>x.id!=='GEO').length;redraw();init();$('loading').style.display='none';ui()})().catch(()=>{$('loading').textContent='რუკა ვერ ჩაიტვირთა'});
+</script></div></body></html>
